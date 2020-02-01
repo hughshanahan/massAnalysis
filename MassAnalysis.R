@@ -16,8 +16,6 @@ m <- as.numeric(readline("What is your mass today?"))
 thisDay <- data.frame(Today=c(Sys.Date()),daysElapsed=c(daysSinceStart()),mass=c(m*1.0))
 masses <- rbind(masses,thisDay)
 save(masses,file=massesFn)
-system(paste("git add",massesFn))
-system(paste("git commit -m","\"New mass added\""))
 
 # Plot all the data
 library(ggplot2)
