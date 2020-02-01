@@ -4,35 +4,20 @@ daysSinceStart <- function(){
   day <- format(today,"%d")
   month <- format(today,"%m")
   year <- format(today,"%Y")
-  as.numeric(ISOdate(year,month,day)- ISOdate("2019","1","31"),units='days')
+  as.numeric(ISOdate(year,month,day)- ISOdate("2020","2","1"),units='days')
 }
 
+load(file="masses.Rdata")
+m <- readline("What is your mass today?")
 
-# 
- 
-daysSinceStart()
+thisDay <- data.frame(Today=c(Sys.Date()),daysElapsed=c(daysSinceStart()),mass=c(m))
+masses <- rbind(masses,thisDay)
+save(masses,file="masses.Rdata")
 
-t <- c(1,4,5,6,7,9,10,11,12,13,14,15,16,17,19,20,21,22,23,24,25,26,
-       27,28,29,30,31,32,33,34,35,36,37,38,39,40,44,45,46,49,50,52,53,54,55,
-       56,58,64,65,66,67,72,73,75,76,77,78,79,80,81,82,83,84,85,86,88,89,90,
-       91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,112,117,120,123,124,
-       126,128,129,130,139,140,142,143,144,145,146,151,152,153,155,158,160,
-       161,166,167,168,170,171,173,174,185)
-M <- c(89.3,89,88.6,87.9,88.4,87.8,87.4,86.7,87.9,87.8,87.9,86.8,
-       87.4,86.8,87.1,87.2,87.5,86.8,85.8,86.2,86.8,87.2,85.3,86,
-       86.2,84.9,85.4,84,85,84.4,83.7,84.6,83.4,83,83.4,84.1,82.6,
-       83.9,84.0,83.9,83.2,83,83.4,82,82,82.4,82.5,83.8,82.5,82.2,
-       83.5,82.4,83.8,82.1,82.2,82.2,81.2,82.4,81.6,82.2,81.9,82.2,
-       81.0,82.6,81.0,81.3,81.5,81.1,81.4,81.4,81.2,80.5,80.4,80.8,
-       80.7,80.1,81.0,80.6,79.8,80.7,80.2,81,79.9,80.1,81.0,78.8,81.1,80.9,
-       80.3,80.0,79.1,80.3,80.5,79.5,80.1,78.4,79.8,78.9,79.1,79.6,78.7,79.4,
-       79.2,80.8,79.4,78.3,78.6,77.8,78.6,78.6,78.0,78.2,78.6,77.1)
-length(M)
-length(t)
 library(ggplot2)
-data <- data.frame(t=t,M=M)
-ggplot(data=data,aes(t,M)) + geom_point() + scale_x_continuous(limits = c(0,250)) + scale_y_continuous(limits=c(75,90)) + stat_smooth(method="loess",fullrange=TRUE)
-?stat_smooth
+ggplot(data=masses,aes(daysElapsed,mass)) + geom_point() + scale_x_continuous(limits = c(0,30)) + scale_y_continuous(limits=c(75,90)) + stat_smooth(method="loess",fullrange=TRUE)
+
+
 
 
 
