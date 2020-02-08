@@ -7,7 +7,8 @@ daysSinceStart <- function(){
   as.numeric(ISOdate(year,month,day)- ISOdate("2020","2","1"),units='days')
 }
 
-runThis(){
+runThis <- function(){
+  setwd("/Users/upac004/Dropbox (Personal)/R")
 # Read in masses data frame then ask for mass for today
   massesFn <- "masses.Rdata"
   load(file=massesFn)
